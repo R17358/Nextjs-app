@@ -192,8 +192,6 @@ app/
 
 frontend pages and backend API routes in the same project
 Server-Side Rendering (SSR) & Static Generation (SSG)
-
-
 ```bash
 
 
