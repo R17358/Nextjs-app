@@ -15,6 +15,7 @@ cd my-app
 npm install mongoose
 npm install shadcn-ui --save-dev
 
+```
 my-app/
  ├─ app/
  │   ├─ api/
@@ -38,6 +39,7 @@ my-app/
  ├─ .env.local                 // Environment variables
  └─ package.json
 
+```
 
 # but page.jsx is only needed inside app pages but if we create separate components folder they not need it
 
