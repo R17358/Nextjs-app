@@ -8,12 +8,18 @@ This guide will help you quickly set up a **full-stack app** with Next.js, Mongo
 
 
 # Create Next.js app
+```
 npx create-next-app@latest my-app
 cd my-app
 
+```
 # Install dependencies
+
+```
 npm install mongoose
 npm install shadcn-ui --save-dev
+
+```
 
 ```
 my-app/
@@ -45,7 +51,7 @@ my-app/
 
 
 # lib/db.js: (cached connection)
-
+```
 import mongoose from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -78,8 +84,11 @@ async function connectDB() {
 
 export default connectDB;
 
+```
 
 # models/User.js
+
+```
 
 import mongoose from "mongoose";
 
@@ -94,8 +103,11 @@ const UserSchema = new mongoose.Schema(
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);
 
+```
 
 # app/api/users/route.js
+
+```
 
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/db";
@@ -127,7 +139,11 @@ export async function POST(req) {
   return NextResponse.json(user, { status: 201 });
 }
 
+```
+
 # Frontend (app/page.jsx)
+
+```
 
 "use client";
 import { useEffect, useState } from "react";
@@ -153,8 +169,11 @@ export default function Home() {
   );
 }
 
+```
 
 # if more backend routes
+
+```
 
 app/
  ├─ api/
@@ -165,6 +184,7 @@ app/
  │   └─ auth/
  │       └─ route.js
 
+```
 
 # if your backend is going to be large, complex, or have heavy business logic, then it’s often better to make it separately in Express (or NestJS, Fastify, etc.)
 
