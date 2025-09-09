@@ -192,6 +192,48 @@ app/
 
 frontend pages and backend API routes in the same project
 Server-Side Rendering (SSR) & Static Generation (SSG)
+
+# clerk notes
+
+```
+'use client'
+import { useUser } from '@clerk/nextjs'
+
+export default function MyComponent() {
+  const { user, isSignedIn, sessionId, getToken } = useUser()
+
+  const callBackend = async () => {
+    if (!isSignedIn) return
+    // Get Clerk token
+    const token = await getToken({ template: 'default' }) 
+    // Call your backend with token
+    const res = await fetch('/api/protected', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    const data = await res.json()
+    console.log(data)
+  }
+
+  return (
+    <button onClick={callBackend}>Call Backend</button>
+  )
+}
+
+```
+
+```
+import { auth } from '@clerk/nextjs'
+
+export async function GET(req) {
+  const { userId } = auth() // Throws error if token invalid
+  return new Response(JSON.stringify({ message: `Hello user ${userId}` }))
+}
+
+
+```
+
 ```bash
 
 
