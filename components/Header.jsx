@@ -10,16 +10,27 @@ import {
 } from '@clerk/nextjs'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useDispatch } from 'react-redux'
+import { userLoginEntry } from '@/redux/actions/userActions'
 
 export default function Header() {
   const router = useRouter()
-  const { isSignedIn } = useUser()
+  const { isSignedIn, user} = useUser()
+
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isSignedIn) {
-      router.push('/home')
+      const  clerkId = user.id;
+      const email = user.primaryEmailAddress?.emailAddress || ""
+      const firstName = user.firstName || ""
+      const lastName = user.lastName || ""
+
+      dispatch(userLoginEntry({ clerkId, email, firstName, lastName }))
+      router.push('/additionalinfo')
     }
-  }, [isSignedIn, router])
+  }, [isSignedIn, user, router, dispatch])
 
   return (
     <header className="flex justify-end items-center p-4 gap-4 h-16">
